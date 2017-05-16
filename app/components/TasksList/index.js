@@ -1,24 +1,56 @@
 import React, { Component } from 'react'
 
-import { ListView, Text } from 'react-native'
+import { ListView, Text, TextInput, View } from 'react-native'
+
+import styles from './styles';
 
 export default class TasksList extends Component {
   constructor() {
     super()
 
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
     this.state = {
-      dataSource: ds.cloneWithRows(['row1','row2'])
+      ds: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
+      listOfTasks: [],
+      text:'',
     }
   }
 
+  _changeTextInputValue(text) {
+    this.setState({
+      text
+    })
+  }
+
+  _addTask() {
+    const newListOfTasks = [...this.state.listOfTasks, this.state.text]
+    console.log('State: tasks ',newListOfTasks,' text ', this.state.text)
+    this.setState({
+      listOfTasks: newListOfTasks,
+      text: ''
+    })
+  }
+
   render() {
+    const dataSource = this.state.ds.cloneWithRows(this.state.listOfTasks)
+    console.log(dataSource)
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={rowData => <Text>{rowData}</Text>}
-      />
+      <View> 
+        <TextInput
+          autoCorrect={false}
+          onChangeText={text => this._changeTextInputValue(text)}
+          onSubmitEditing={() => this._addTask()}
+          returnKeyType={'done'}
+          style={styles.textInput}
+          value={this.state.text}
+        />
+        <ListView
+          dataSource={dataSource}
+          enableEmptySections={ true }
+          renderRow={rowData => <Text>{rowData}</Text>}
+        />
+      </View>
     )
   }
 }
