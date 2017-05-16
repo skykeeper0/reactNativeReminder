@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 
-import { ListView, Text, TextInput, View } from 'react-native'
+import { 
+  ListView, 
+  Text, 
+  TextInput, 
+  View,
+  AsyncStorage,
+} from 'react-native'
 
 import styles from './styles';
 
@@ -17,24 +23,36 @@ export default class TasksList extends Component {
     }
   }
 
+  componentDidMount() {
+    this._updateList();
+  }
+
   _changeTextInputValue(text) {
     this.setState({
       text
     })
   }
 
-  _addTask() {
+  async _addTask() {
     const newListOfTasks = [...this.state.listOfTasks, this.state.text]
-    console.log('State: tasks ',newListOfTasks,' text ', this.state.text)
+    await AsyncStorage.setItem('listOfTasks',JSON.stringify(newListOfTasks))
+
+    this._updateList();
+  }
+
+  async _updateList() {
+    let response = await AsyncStorage.getItem('listOfTasks');
+    let listOfTasks = await JSON.parse(response) || [];
+
     this.setState({
-      listOfTasks: newListOfTasks,
-      text: ''
+      listOfTasks
     })
+
+    this._changeTextInputValue('')
   }
 
   render() {
     const dataSource = this.state.ds.cloneWithRows(this.state.listOfTasks)
-    console.log(dataSource)
     return (
       <View> 
         <TextInput
