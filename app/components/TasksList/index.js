@@ -25,13 +25,47 @@ export default class TasksList extends Component {
     }
   }
 
-  render () {
+  _addTask() {
+    const listOfTasks = [...this.state.listofTasks, this.state.text];
+
+    this.setState({
+      listOfTasks
+    })
+
+    this._changeTextInputValue('')
+  }
+
+  _changeTextInputValue (text) {
+    this.setState({
+      text
+    });
+  }
+
+  _renderRowData(rowData) {
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={ rowData => 
-          <Text> {rowData} </Text>}
-      />  
+      <Text>{ rowData }</Text>
+    )
+  }
+
+  render () {
+    const dataSource = this.state.ds.cloneWithRows(this.state.listOfTasks);
+    return (
+      <View style= {styles.container}>
+        <TextInput
+          autoCorrect={ false }
+          onChangeText={text=> this._changeTextInputValue(text)}
+          onSubmitEditing={()=> this._addTask()}
+          returnKeyType={ 'done' }
+          style={ styles.textInput }
+          value={ this.state.text }
+        />
+        <ListView
+          dataSource={ dataSource }
+          enableEmptySections={ true }
+          renderRow={ rowData => 
+            <Text> {rowData} </Text>}
+        />  
+      </View>
     )
   }
 }
