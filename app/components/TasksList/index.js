@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 
 import {
+  AsyncStorage,
   ListView,
   Text,
   TextInput,
   View
 } from 'react-native';
 
+import TasksListCell from '../TasksListCell';
 import styles from './styles';
 
 export default class TasksList extends Component {
   constructor (props) {
     super (props);
-
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
 
     this.state = {
       ds: new ListView.DataSource({
@@ -26,11 +24,15 @@ export default class TasksList extends Component {
     };
   }
 
+  componentDidMount () {
+    this._updateList();
+  }
+
   render () {
     const dataSource = this.state.ds.cloneWithRows(this.state.listOfTasks);
 
     return (
-      <View style={ styles.container }>
+      <View>
         <TextInput
           autoCorrect={ false }
           onChangeText={ (text) => this._changeTextInputValue(text) }
@@ -42,31 +44,64 @@ export default class TasksList extends Component {
         <ListView
           dataSource={ dataSource }
           enableEmptySections={ true }
-          renderRow={ (rowData) => this._renderRowData(rowData) }
+          renderRow={ (rowData, sectionID, rowID) => this._renderRowData(rowData, rowID) }
         />
       </View>
     );
   }
 
-  _addTask () {
-    const newListOfTasks = [...this.state.listOfTasks, this.state.text];
+  async _addTask () {
+    const singleTask = {
+      completed: false,
+      text: this.state.text
+    }
 
-    this.setState({
-      listOfTasks: newListOfTasks
-    });
+    const listOfTasks = [...this.state.listOfTasks, singleTask];
 
-    this._changeTextInputValue('');
+    await AsyncStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+
+    this._updateList();
   }
 
   _changeTextInputValue (text) {
     this.setState({
-      text: text
+      text
     });
   }
 
-  _renderRowData (rowData) {
+  async _completeTask (rowID) {
+    const singleUpdatedTask = {
+      ...this.state.listOfTasks[rowID],
+      completed: !this.state.listOfTasks[rowID].completed
+    };
+
+    const listOfTasks = this.state.listOfTasks.slice();
+    listOfTasks[rowID] = singleUpdatedTask;
+
+    await AsyncStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+
+    this._updateList();
+  }
+
+  _renderRowData (rowData, rowID) {
     return (
-      <Text>{ rowData }</Text>
+      <TasksListCell
+        completed={ rowData.completed }
+        id={ rowID }
+        onPress={ (rowID) => this._completeTask(rowID) }
+        text={ rowData.text }
+      />
     )
+  }
+
+  async _updateList () {
+    let response = await AsyncStorage.getItem('listOfTasks');
+    let listOfTasks = await JSON.parse(response) || [];
+
+    this.setState({
+      listOfTasks
+    });
+
+    this._changeTextInputValue('');
   }
 }
