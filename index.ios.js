@@ -16,7 +16,7 @@ import TaskList from './app/components/TasksList'
 export default class Tasks extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         <TaskList />
       </View>
     );
