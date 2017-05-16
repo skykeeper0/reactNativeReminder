@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 
 import {
   ListView,
-  Text
+  Text,
+  TextInput,
+  View
 } from 'react-native';
+
+import styles from './styles';
 
 export default class TasksList extends Component {
   constructor (props) {
@@ -13,12 +17,11 @@ export default class TasksList extends Component {
     });
 
     this.state = {
-      dataSource: ds.cloneWithRows([
-        'Buy milk',
-        'walk the dog',
-        'Do laundry',
-        'write the first chapter of my book'
-      ])
+      ds: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      }),
+      listofTasks: [],
+      text: ''
     }
   }
 
