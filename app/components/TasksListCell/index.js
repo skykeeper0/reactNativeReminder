@@ -22,7 +22,7 @@ export default class TasksListCell extends Component {
     const isCompleted = this.props.completed ? 'line-through' : 'none';
     const textStyle = {
       fontSize: 20,
-      textDecorationLine: isCompleted
+      textDecorationLine: isCompleted,
     };
 
     return (

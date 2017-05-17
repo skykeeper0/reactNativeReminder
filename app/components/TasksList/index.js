@@ -7,8 +7,9 @@ import {
   AsyncStorage,
   View,
 } from 'react-native'
-
+import TasksListCell from '../TasksListCell'
 import styles from './styles'
+
 
 export default class TasksList extends Component {
   constructor() {
@@ -32,8 +33,11 @@ export default class TasksList extends Component {
   }
 
   async _addTask() {
-    const newList = [...this.state.listOfTask, this.state.text]
-
+    const singleTask = {
+      completed: false,
+      text: this.state.text
+    }
+    const newList = [...this.state.listOfTask, singleTask]
     await AsyncStorage.setItem('listOfTask', JSON.stringify(newList))
 
     this._updateList()
@@ -47,6 +51,21 @@ export default class TasksList extends Component {
       listOfTask: newList,
       text:''
     })
+  }
+
+  _returnRowData(rowData, rowId) {
+    return (
+      <TasksListCell 
+        completed={rowData.completed}
+        id={rowId}
+        onPress={ rowId => this._completeTask(rowId)}
+        text={rowData.text}
+      />
+    )
+  }
+
+  _completeTask(rowId) {
+
   }
 
   render() {
@@ -63,7 +82,7 @@ export default class TasksList extends Component {
         <ListView
           dataSource={dataSource}
           enableEmptySections={ true }
-          renderRow={rowData => <Text>{rowData}</Text>}
+          renderRow={(rowData,rowId) => <Text>{this._returnRowData(rowData,rowId)}</Text>}
         />
       </View>
     )
