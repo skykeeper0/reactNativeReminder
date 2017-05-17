@@ -7,12 +7,12 @@ import {
 } from 'react-native';
 
 export default class TasksListCell extends Component {
-  // static propTypes = {
-  //   completed: PropTypes.bool.isRequired,
-  //   id: PropTypes.string.isRequired,
-  //   onPress: PropTypes.func.isRequired,
-  //   text: PropTypes.string.isRequired
-  // }
+  static propTypes = {
+    completed: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    onPress: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired
+  }
 
   constructor (props) {
     super (props);

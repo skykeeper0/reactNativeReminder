@@ -27,6 +27,7 @@ export default class TasksList extends Component {
   }
 
   render() {
+    // console.log(this.state.listOfTasks)
     const dataSource = this.state.ds.cloneWithRows(this.state.listOfTasks)
     return (
       <View>
@@ -53,7 +54,7 @@ export default class TasksList extends Component {
       text: this.state.text
     }
     const newList = [...this.state.listOfTasks, singleTask]
-    await AsyncStorage.setItem('listOfTasks', JSON.stringify(newList));
+    await AsyncStorage.setItem('list', JSON.stringify(newList));
 
     this._updateList();
   }
@@ -65,6 +66,7 @@ export default class TasksList extends Component {
   }
 
   async _completeTask (rowId) {
+    console.log(rowId)
     const singleUpdatedTask = {
       ...this.state.listOfTasks[rowId],
       completed: !this.state.listOfTasks[rowId].completed
@@ -73,7 +75,7 @@ export default class TasksList extends Component {
     const listOfTasks = this.state.listOfTasks.slice();
     listOfTasks[rowId] = singleUpdatedTask;
 
-    await AsyncStorage.setItem('listOfTasks', JSON.stringify(listOfTasks));
+    await AsyncStorage.setItem('list', JSON.stringify(listOfTasks));
 
     this._updateList();
   }
@@ -90,9 +92,10 @@ export default class TasksList extends Component {
   }
 
   async _updateList() {
-    let response = await AsyncStorage.getItem('listOfTasks')
+    let response = await AsyncStorage.getItem('list')
     let listOfTasks = await JSON.parse(response) || [];
 
+    
     this.setState({
       listOfTasks,
       text:''
