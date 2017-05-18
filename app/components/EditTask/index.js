@@ -6,6 +6,7 @@ import {
   DatePickerIOS
 } from 'react-native'
 
+import ExpandableCell from '../ExpandableCell'
 import styles from './styles'
 
 export default class EditTask extends Component {
@@ -26,11 +27,13 @@ export default class EditTask extends Component {
   render() {
     return (
       <View style={ styles.editTaskContainer }>
-        <DatePickerIOS
-          date={ this.state.date }
-          onDateChange={date => this._onDateChange(date)}
-          style={ styles.datePicker }
-        />
+        <ExpandableCell title={ 'Due on' }>
+          <DatePickerIOS
+            date={ this.state.date }
+            onDateChange={date => this._onDateChange(date)}
+            style={ styles.datePicker }
+          />
+        </ExpandableCell>
       </View>
     )
   }
