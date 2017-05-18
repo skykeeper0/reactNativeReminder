@@ -27,7 +27,6 @@ export default class ExpandableCell extends Component {
   }
 
   _expandCell() {
-    console.log('pressed')
     this.setState({
       expanded: !this.state.expanded
     })
