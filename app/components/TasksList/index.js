@@ -9,11 +9,12 @@ import {
 } from 'react-native'
 
 import TasksListCell from '../TasksListCell'
+import EditTask from '../EditTask'
 import styles from './styles'
 
 export default class TasksList extends Component {
-  constructor() {
-    super() 
+  constructor(props) {
+    super(props) 
 
     this.state = {
       ds: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
@@ -65,6 +66,7 @@ export default class TasksList extends Component {
         text={rowData.text}
         id={rowId}
         onPress={() => this._completeTask(rowId)}
+        onLongPress={() => this._editTask()}
       />
     )
   }
@@ -81,10 +83,18 @@ export default class TasksList extends Component {
     this._updateList();
   }
 
+  _editTask() {
+    this.props.navigator.push({
+      component: EditTask,
+      title: 'Edit'
+    })
+  }
+
   render() {
+    console.log(this.props)
     const dataSource = this.state.ds.cloneWithRows(this.state.listOfTasks)
     return (
-      <View>
+      <View style={styles.container}>
         <TextInput
           autoCorrect={false}
           onChangeText={(text) => this._changeTextValue(text)}
@@ -95,6 +105,8 @@ export default class TasksList extends Component {
         <ListView
           dataSource={dataSource}
           enableEmptySections={true}
+          automaticallyAdjustContentInsets={false}
+          styles={styles.listView}
           renderRow={(rowData,sectionId,rowId) => this._returnTasksListCell(rowData,rowId)}
         />
       </View>
