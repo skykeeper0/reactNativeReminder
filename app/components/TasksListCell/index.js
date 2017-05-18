@@ -25,7 +25,7 @@ export default class TasksListCell extends Component {
       <View>
         <TouchableHighlight
           onPress={()=> this.props.onPress()}
-          underlayColor={"#00ffff"}
+          underlayColor={'#D5DBDE'}
         >
           <Text style={styles.text}>{this.props.text}</Text>
         </TouchableHighlight>
