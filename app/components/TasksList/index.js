@@ -91,7 +91,6 @@ export default class TasksList extends Component {
   }
 
   render() {
-    console.log(this.props)
     const dataSource = this.state.ds.cloneWithRows(this.state.listOfTasks)
     return (
       <View style={styles.container}>

@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
   },
 
   editTaskText: {
-    fontSize: 36
+    fontSize: 36,
+    paddingTop: 65
   }
 })
 

@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   visibleContent: {
-    fontSize: 24
+    fontSize: 16
   }
 })
+
+export default styles;

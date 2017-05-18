@@ -27,6 +27,7 @@ export default class ExpandableCell extends Component {
   }
 
   _expandCell() {
+    console.log('pressed')
     this.setState({
       expanded: !this.state.expanded
     })
@@ -46,7 +47,7 @@ export default class ExpandableCell extends Component {
           </TouchableHighlight>
         </View>
 
-        <View style={ [styles.hiddenContent, this.state.expanded ? {}: {maxHeight: 0}]}>
+        <View style={ [styles.hiddenContent, this.state.expanded? {} : {maxHeight: 0}]}>
           { this.props.children }
         </View>
       </View>
