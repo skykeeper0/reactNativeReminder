@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 
 import {
   View,
@@ -8,6 +8,14 @@ import {
 } from 'react-native'
 
 export default class TasksListCell extends Component {
+  static PropTypes = {
+    completed: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    onLongPress: PropTypes.func.isRequired,
+    onPress: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired
+  }
+
   constructor(props) {
     super(props)
 

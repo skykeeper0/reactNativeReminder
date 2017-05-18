@@ -4,7 +4,7 @@ import { Navigator } from 'react-native-deprecated-custom-components'
 const styles = StyleSheet.create({
   editTaskContainer: {
     flex: 1,
-    // paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight
+    paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight
   },
 
   editTaskText: {
