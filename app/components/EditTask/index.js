@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import moment from 'moment'
 
 import {
+  Button,
   Text,
   View,
   DatePickerIOS
@@ -15,7 +16,8 @@ export default class EditTask extends Component {
     super(props);
 
     this.state = {
-      date: new Date()
+      date: new Date(),
+      expanded: false
     }
   }
 
@@ -31,8 +33,22 @@ export default class EditTask extends Component {
     return moment(date).format('lll')
   }
 
-  _getComponentDimensions(event) {
-    console.log(event.nativeEvent.layout)
+  _clearDate() {
+    this.setState({
+      dateSelected: false
+    })
+  }
+
+  _getDatePickerHeight(event) {
+    this.setState({
+      datePickerHeight: event.nativeEvent.layout.width
+    })
+  }
+
+  _onExpand() {
+    this.setState({
+      expanded: !this.state.expanded
+    })
   }
 
   render() {
@@ -40,14 +56,35 @@ export default class EditTask extends Component {
     const dueDateSetTitle = "Due on " + this.state.formatedDate
     return (
       <View style={ styles.editTaskContainer }>
-        <ExpandableCell title={ this.state.dateSelected ? dueDateSetTitle : noDueDateTitle }>
-          <DatePickerIOS
-            date={ this.state.date }
-            onDateChange={date => this._onDateChange(date)}
-            onLayout={event => this._getComponentDimensions(event)}
-            style={ styles.datePicker }
+
+        <View
+          style={ [
+            styles.expandableCellContainer,
+            { maxHeight: this.state.expanded? this.state.datePickerHeight : 40}
+          ]}
+        >
+          <ExpandableCell
+            title={ this.state.dateSelected ? dueDateSetTitle : noDueDateTitle }
+            expanded={ this.state.expanded }
+            onPress={ () => this._onExpand()}
+          >
+            <DatePickerIOS
+              date={ this.state.date }
+              onDateChange={date => this._onDateChange(date)}
+              onLayout={event => this._getDatePickerHeight(event)}
+              style={ styles.datePicker }
+            />
+          </ExpandableCell>
+        </View>
+
+        <View style={styles.clearDateButtonContainer} >
+          <Button
+            color={ '#B44743' }
+            disabled={ this.state.dateSelected ? false : true }
+            onPress={ () => this._clearDate()}
+            title={ 'Clear Date' }
           />
-        </ExpandableCell>
+        </View>
       </View>
     )
   }

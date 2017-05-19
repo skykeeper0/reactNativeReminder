@@ -10,6 +10,10 @@ const styles = StyleSheet.create({
   editTaskText: {
     fontSize: 36,
     paddingTop: 65
+  },
+
+  clearDateButtonContainer: {
+    flex: 1
   }
 })
 
