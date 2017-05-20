@@ -5,7 +5,8 @@ import {
   Button,
   Text,
   View,
-  DatePickerIOS
+  DatePickerIOS,
+  TextInput
 } from 'react-native'
 
 import ExpandableCell from '../ExpandableCell'
@@ -18,7 +19,8 @@ export default class EditTask extends Component {
     this.state = {
       date: new Date(),
       expanded: false,
-      formatedDate: 1
+      formatedDate: 1,
+      text: this.props.text
     }
   }
 
@@ -53,12 +55,34 @@ export default class EditTask extends Component {
     })
   }
 
+  _onTextChange(text) {
+    this.setState({
+      text
+    })
+  }
+s
+  _onTextSubmit() {
+    this.props.changeText(this.state.text)
+    this.setState({
+      text: ''
+    })
+  }
+
   render() {
     console.log(this.props.text)
     const noDueDateTitle = "Set Reminder"
     const dueDateSetTitle = "Due on " + this.state.formatedDate
     return (
       <View style={ styles.editTaskContainer }>
+        <View >
+          <TextInput 
+            autoCorrect={false}
+            style={ styles.textInput }
+            onChangeText={text => this._onTextChange(text)}
+            onSubmitEditing={() => this._onTextSubmit()}
+            value={this.state.text}
+          />
+        </View>
 
         <View
           style={ [

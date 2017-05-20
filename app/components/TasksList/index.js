@@ -86,14 +86,27 @@ export default class TasksList extends Component {
   _editTask(rowData,rowId) {
     this.props.navigator.push({
       component: EditTask,
-      title: 'Edit',
+      title: rowData.text,
       passProps: { 
         completed: rowData.completed,
         due: '',
         formattedDate: '',
         text: rowData.text,
+        changeText: (text) => this._changeTextAtRow(text,rowId),
       }
     })
+  }
+
+  async _changeTextAtRow(text,rowId) {
+    const list = this.state.listOfTasks;
+    list[rowId] = {
+      text: text,
+      completed: list[rowId].completed,
+    }
+
+    await AsyncStorage.setItem('list', JSON.stringify(list))
+
+    this._updateList();
   }
 
   render() {
