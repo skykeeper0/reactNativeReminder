@@ -25,6 +25,7 @@ export default class ExpandableCell extends Component {
   render() {
     return (
       <View style={styles.expandableCellContainer}>
+        
         <View>
           <TouchableHighlight
             onPress={() => this.props.onPress()}
