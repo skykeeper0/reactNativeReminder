@@ -17,7 +17,8 @@ export default class EditTask extends Component {
 
     this.state = {
       date: new Date(),
-      expanded: false
+      expanded: false,
+      formatedDate: 1
     }
   }
 
@@ -25,10 +26,9 @@ export default class EditTask extends Component {
     this.setState({
       date,
       expanded : true,
-      formatedDate: this._formatDate(date)
+      formatedDate: this._formatDate(date),
+      dateSelected: true,
     })
-
-    console.log(date)
   }
 
   _formatDate(date) {
