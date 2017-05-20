@@ -93,6 +93,7 @@ export default class TasksList extends Component {
         formattedDate: '',
         text: rowData.text,
         changeText: (text) => this._changeTextAtRow(text,rowId),
+        changeCompleted: () => this._completeTask(rowId),
       }
     })
   }

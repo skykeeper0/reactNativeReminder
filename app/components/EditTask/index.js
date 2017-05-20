@@ -6,7 +6,8 @@ import {
   Text,
   View,
   DatePickerIOS,
-  TextInput
+  TextInput,
+  Switch
 } from 'react-native'
 
 import ExpandableCell from '../ExpandableCell'
@@ -20,7 +21,8 @@ export default class EditTask extends Component {
       date: new Date(),
       expanded: false,
       formatedDate: 1,
-      text: this.props.text
+      text: this.props.text,
+      completed: this.props.completed
     }
   }
 
@@ -68,6 +70,13 @@ s
     })
   }
 
+  _onSwitch() {
+    this.props.changeCompleted()
+    this.setState({
+      completed: !this.state.completed
+    })
+  }
+
   render() {
     console.log(this.props.text)
     const noDueDateTitle = "Set Reminder"
@@ -81,6 +90,13 @@ s
             onChangeText={text => this._onTextChange(text)}
             onSubmitEditing={() => this._onTextSubmit()}
             value={this.state.text}
+          />
+        </View>
+
+        <View>
+          <Switch
+            onValueChange={() => this._onSwitch()}
+            value={this.state.completed}
           />
         </View>
 
