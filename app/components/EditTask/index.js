@@ -54,6 +54,7 @@ export default class EditTask extends Component {
   }
 
   render() {
+    console.log(this.props.text)
     const noDueDateTitle = "Set Reminder"
     const dueDateSetTitle = "Due on " + this.state.formatedDate
     return (

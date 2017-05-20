@@ -66,7 +66,7 @@ export default class TasksList extends Component {
         text={rowData.text}
         id={rowId}
         onPress={() => this._completeTask(rowId)}
-        onLongPress={() => this._editTask()}
+        onLongPress={() => this._editTask(rowData,rowId)}
       />
     )
   }
@@ -83,10 +83,16 @@ export default class TasksList extends Component {
     this._updateList();
   }
 
-  _editTask() {
+  _editTask(rowData,rowId) {
     this.props.navigator.push({
       component: EditTask,
-      title: 'Edit'
+      title: 'Edit',
+      passProps: { 
+        completed: rowData.completed,
+        due: '',
+        formattedDate: '',
+        text: rowData.text,
+      }
     })
   }
 
