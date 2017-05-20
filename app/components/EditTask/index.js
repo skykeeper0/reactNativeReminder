@@ -27,6 +27,8 @@ export default class EditTask extends Component {
       expanded : true,
       formatedDate: this._formatDate(date)
     })
+
+    console.log(date)
   }
 
   _formatDate(date) {
@@ -60,7 +62,7 @@ export default class EditTask extends Component {
         <View
           style={ [
             styles.expandableCellContainer,
-            { maxHeight: this.state.expanded? this.state.datePickerHeight : 40}
+            { maxHeight: this.state.expanded ? this.state.datePickerHeight : 40}
           ]}
         >
           <ExpandableCell

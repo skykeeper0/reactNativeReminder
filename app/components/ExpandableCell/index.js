@@ -16,20 +16,10 @@ export default class ExpandableCell extends Component {
 
   constructor (props) {
     super (props) 
-
-    this.state = {
-      expanded: false
-    }
   }
 
   componentWillUpdate() {
     LayoutAnimation.linear()
-  }
-
-  _expandCell() {
-    this.setState({
-      expanded: !this.state.expanded
-    })
   }
 
   render() {
@@ -37,7 +27,7 @@ export default class ExpandableCell extends Component {
       <View style={styles.expandableCellContainer}>
         <View>
           <TouchableHighlight
-            onPress={() => this._expandCell()}
+            onPress={() => this.props.onPress()}
             underlayColor= { '#D3D3D3' }
           >
             <Text style={ styles.visibleContent }> 
@@ -46,7 +36,7 @@ export default class ExpandableCell extends Component {
           </TouchableHighlight>
         </View>
 
-        <View style={ [styles.hiddenContent, this.state.expanded? {} : {maxHeight: 0}]}>
+        <View style={ [styles.hiddenContent, this.props.expanded? {} : {maxHeight: 0}]}>
           { this.props.children }
         </View>
       </View>

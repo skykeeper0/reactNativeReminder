@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
     paddingTop: Navigator.NavigationBar.Styles.General.TotalNavHeight
   },
 
-  editTaskText: {
-    fontSize: 36,
-    paddingTop: 65
-  },
-
   clearDateButtonContainer: {
     flex: 1
+  },
+
+  expandableCellContainer: {
+    flex: 1,
+    overflow: 'hidden'
   }
 })
 
