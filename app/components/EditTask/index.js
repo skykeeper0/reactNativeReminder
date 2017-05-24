@@ -1,21 +1,32 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes} from 'react'
 import moment from 'moment'
 
 import {
   Button,
   Text,
   View,
-  DatePickerIOS
+  DatePickerIOS,
+  Switch,
+  TextInput
 } from 'react-native'
 
 import ExpandableCell from '../ExpandableCell'
 import styles from './styles'
 
 export default class EditTask extends Component {
+  // checking type of passed props
+  static propTypes = {
+    completed: PropTypes.bool.isRequired,
+    due: PropTypes.string.isRequired,
+    formatedDate: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
+      completed: this.props.completed,
       date: new Date(),
       expanded: false,
       formatedDate: 1
@@ -53,11 +64,33 @@ export default class EditTask extends Component {
     })
   }
 
+  // change the text value state by changing text
+  _changeTextInputValue(text) {
+    this.setState({
+      text
+    })
+  }
+
+  _onSwitchToggle(completed){
+    this.setState({
+      completed
+    })
+  }
+
   render() {
     const noDueDateTitle = "Set Reminder"
     const dueDateSetTitle = "Due on " + this.state.formatedDate
     return (
       <View style={ styles.editTaskContainer }>
+        <View>
+          <TextInput
+            autoCorrect= { false }
+            onChangeText = { text => this._changeTextInputValue(text)}
+            returnKeyType = { 'done' }
+            style = { styles.textInput }
+            value = { this.state.text }
+          />
+        </View>
 
         <View
           style={ [
@@ -77,6 +110,14 @@ export default class EditTask extends Component {
               style={ styles.datePicker }
             />
           </ExpandableCell>
+        </View>
+
+        <View style={ styles.switchContainer }>
+          <Text style={ styles.switchText }>Completed</Text>
+          <Switch
+            onValueChange={value => this._onSwitchToggle(completed)}
+            value={ this.state.completed }
+          />
         </View>
 
         <View style={styles.clearDateButtonContainer} >
