@@ -16,10 +16,14 @@ import styles from './styles'
 export default class EditTask extends Component {
   // checking type of passed props
   static propTypes = {
-    completed: PropTypes.bool.isRequired,
-    due: PropTypes.string.isRequired,
-    formatedDate: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired
+    // completed: PropTypes.bool.isRequired,
+    // due: PropTypes.string.isRequired,
+    // formatedDate: PropTypes.string.isRequired,
+    // text: PropTypes.string.isRequired
+    changeTaskCompletionStatus: PropTypes.func.isRequired,
+    changeTaskDueDate: PropTypes.func.isRequired,
+    changeTaskName: PropTypes.func.isRequired,
+    clearTaskDueDate: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -40,6 +44,7 @@ export default class EditTask extends Component {
       formatedDate: this._formatDate(date),
       dateSelected: true,
     })
+    this.props.changeTaskDueDate(date, formattedDate);
   }
 
   _formatDate(date) {
@@ -50,6 +55,7 @@ export default class EditTask extends Component {
     this.setState({
       dateSelected: false
     })
+    this.props.clearTaskDueDate();
   }
 
   _getDatePickerHeight(event) {
@@ -69,17 +75,19 @@ export default class EditTask extends Component {
     this.setState({
       text
     })
+    this.props.changeTaskName(text);
   }
 
   _onSwitchToggle(completed){
     this.setState({
       completed
     })
+    this.props.changeTaskCompletionStatus(completed);
   }
 
   render() {
     const noDueDateTitle = "Set Reminder"
-    const dueDateSetTitle = "Due on " + this.state.formatedDate
+    const dueDateSetTitle = "Due on " + this.state.formatedDate || this.props.formatedDate
     return (
       <View style={ styles.editTaskContainer }>
         <View>
@@ -115,7 +123,7 @@ export default class EditTask extends Component {
         <View style={ styles.switchContainer }>
           <Text style={ styles.switchText }>Completed</Text>
           <Switch
-            onValueChange={value => this._onSwitchToggle(completed)}
+            onValueChange={value => this._onSwitchToggle(value)}
             value={ this.state.completed }
           />
         </View>
