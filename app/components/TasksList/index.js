@@ -37,6 +37,8 @@ export default class TasksList extends Component {
   async _addTask() {
     const singleTask = {
       completed: false,
+      due: undefined,
+      formattedDate: undefined,
       text: this.state.text
     }
     const listOfTasks = [...this.state.listOfTasks, singleTask]
@@ -72,8 +74,6 @@ export default class TasksList extends Component {
       />
     )
   }
-
-
 
   _completeTask(rowId) {
     const singleUpdatedTask = {
@@ -114,6 +114,8 @@ export default class TasksList extends Component {
 
     this.setState({
       currentEditedTaskObject: newTaskObject
+    }, () => {
+      console.log(this.state.currentEditedTaskObject)
     })
   }
 
@@ -138,10 +140,10 @@ export default class TasksList extends Component {
         clearTaskDueDate: () => 
         this._updateCurrentEditedTaskDueDate(undefined, undefined),
 
-        completed: rowData.completed,
-        due: rowData.due,
-        formattedDate: rowData.formattedDate,
-        text: rowData.text
+        completed: this.state.currentEditedTaskObject.completed,
+        due: this.state.currentEditedTaskObject.due,
+        formattedDate: this.state.currentEditedTaskObject.formattedDate,
+        text: this.state.currentEditedTaskObject.text
       }
     })
   }

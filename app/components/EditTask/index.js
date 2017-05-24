@@ -16,10 +16,10 @@ import styles from './styles'
 export default class EditTask extends Component {
   // checking type of passed props
   static propTypes = {
-    // completed: PropTypes.bool.isRequired,
-    // due: PropTypes.string.isRequired,
-    // formatedDate: PropTypes.string.isRequired,
-    // text: PropTypes.string.isRequired
+    completed: PropTypes.bool.isRequired,
+    due: PropTypes.string.isRequired,
+    formatedDate: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     changeTaskCompletionStatus: PropTypes.func.isRequired,
     changeTaskDueDate: PropTypes.func.isRequired,
     changeTaskName: PropTypes.func.isRequired,
@@ -29,11 +29,13 @@ export default class EditTask extends Component {
   constructor(props) {
     super(props);
 
+    console.log(this.props.formatedDate)
+
     this.state = {
       completed: this.props.completed,
       date: new Date(),
       expanded: false,
-      formatedDate: 1
+      formatedDate: 0
     }
   }
 
@@ -44,7 +46,7 @@ export default class EditTask extends Component {
       formatedDate: this._formatDate(date),
       dateSelected: true,
     })
-    this.props.changeTaskDueDate(date, formattedDate);
+    this.props.changeTaskDueDate(date, this._formatDate(date));
   }
 
   _formatDate(date) {
