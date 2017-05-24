@@ -18,7 +18,7 @@ export default class EditTask extends Component {
   static propTypes = {
     completed: PropTypes.bool.isRequired,
     due: PropTypes.string.isRequired,
-    formatedDate: PropTypes.string.isRequired,
+    formattedDate: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     changeTaskCompletionStatus: PropTypes.func.isRequired,
     changeTaskDueDate: PropTypes.func.isRequired,
@@ -29,13 +29,13 @@ export default class EditTask extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props.formatedDate)
+    console.log(this.props.formattedDate)
 
     this.state = {
       completed: this.props.completed,
       date: new Date(),
       expanded: false,
-      formatedDate: 0
+      formattedDate: 0
     }
   }
 
@@ -43,7 +43,7 @@ export default class EditTask extends Component {
     this.setState({
       date,
       expanded : true,
-      formatedDate: this._formatDate(date),
+      formattedDate: this._formatDate(date),
       dateSelected: true,
     })
     this.props.changeTaskDueDate(date, this._formatDate(date));
@@ -89,7 +89,7 @@ export default class EditTask extends Component {
 
   render() {
     const noDueDateTitle = "Set Reminder"
-    const dueDateSetTitle = "Due on " + this.state.formatedDate || this.props.formatedDate
+    const dueDateSetTitle = "Due on " + this.state.formattedDate || this.props.formattedDate
     return (
       <View style={ styles.editTaskContainer }>
         <View>
