@@ -71,6 +71,7 @@ export default class TasksList extends Component {
         id={rowId}
         onPress={() => this._completeTask(rowId)}
         onLongPress={() => this._editTask(rowData, rowId)}
+        formattedDate={rowData.formattedDate}
       />
     )
   }
