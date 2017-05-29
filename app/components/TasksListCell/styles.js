@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
         color: 'red',
         flex: 1,
         fontSize: 12,
-        paddingTop: 0,
+        paddingTop: 6,
         textAlign: 'right'
     },
     taskNameText: {
@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     tasksListCellTextRow: {
+        flexDirection: 'row',
         flex: 1
     }
 })
