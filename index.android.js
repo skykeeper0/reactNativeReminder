@@ -9,24 +9,45 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Navigator
 } from 'react-native';
 
+import TasksList from './app/components/TasksList';
+import EditTask from './app/components/EditTask'
+
 export default class Tasks extends Component {
+  _renderScene(route, navigator) {
+    if (route.index === 0) {
+      return (
+        <FirstComponent
+          title={ route.title }
+          navigator={ navigator }
+        />
+      )
+    }
+
+    if (route.index === 1) {
+      return (
+        <SecondComponent
+          navigator={ navigator }
+          details={ route.passProps.details }
+        />
+      )
+    }
+  }
+
   render() {
+    const routes = [
+      {title: 'First Component', index: 0},
+      {title: 'Second Component', index: 1}
+    ]
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Navigator
+        initialRoute={{index: 0}}
+        renderScene={ (routes, navigator) => 
+          this._renderScene(routes, navigator)}
+      />
     );
   }
 }
