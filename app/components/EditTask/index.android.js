@@ -25,6 +25,7 @@ export default class EditTask extends Component {
     changeTaskDueDate: PropTypes.func.isRequired,
     changeTaskName: PropTypes.func.isRequired,
     clearTaskDueDate: PropTypes.func.isRequired,
+    saveCurrentEditedTask: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -116,6 +117,15 @@ export default class EditTask extends Component {
     const dueDateSetTitle = "Due on " + this.state.formattedDate || this.props.formattedDate
     return (
       <View style={ styles.editTaskContainer }>
+
+        <View style={ styles.saveButton }>
+          <Button 
+            color={ '#4E92B5' }
+            onPress={ ()=> this.props.saveCurrentEditedTask() }
+            title={ 'Save Task' }
+          />
+        </View>
+
         <View>
           <TextInput
             autoCorrect= { false }

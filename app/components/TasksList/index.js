@@ -137,6 +137,7 @@ export default class TasksList extends Component {
     this.props.navigator.push({
       index: 1,
       passProps: {
+        saveCurrentEditedTask: () => this._saveCurrentEditedTask(rowId),
         changeTaskCompletionStatus: status => 
         this._updateCurrentEditedTaskObject('completed', status),
 
