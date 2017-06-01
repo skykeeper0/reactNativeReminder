@@ -5,7 +5,8 @@ import {
   ListView,
   Text,
   View,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from 'react-native'
 
 import TasksListCell from '../TasksListCell'
@@ -124,6 +125,14 @@ export default class TasksList extends Component {
     this.setState({
       currentEditedTaskObject: rowData
     })
+
+    if (Platform.OS === 'ios') {
+      return this._renderIOSEditTaskComponent(rowId)
+    }
+  }  
+
+  
+  _renderIOSEditTaskComponent(rowId) {
     this.props.navigator.push({
       onRightButtonPress: () => this._saveCurrentEditedTask(rowId),
       rightButtonTitle: 'Save',
@@ -157,7 +166,7 @@ export default class TasksList extends Component {
           autoCorrect={false}
           onChangeText={(text) => this._changeTextValue(text)}
           onSubmitEditing={ () => this._addTask()}
-          style={styles.textInput}
+          style={Platform.OS === 'ios' ? styles.textInput : styles.androidTextInput}
           value={this.state.text}
         />
         <ListView
