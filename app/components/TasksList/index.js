@@ -129,6 +129,8 @@ export default class TasksList extends Component {
     if (Platform.OS === 'ios') {
       return this._renderIOSEditTaskComponent(rowId)
     }
+
+    this._renderAndroidEditTaskComponent(rowId)
   }  
 
   _renderAndroidEditTaskComponent(rowId) {
