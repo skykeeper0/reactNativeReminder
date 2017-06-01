@@ -5,7 +5,8 @@ import {
   Button,
   Text,
   View,
-  DatePickerIOS,
+  DataPickerAndroid,
+  TimePickerAndroid,
   Switch,
   TextInput
 } from 'react-native'
@@ -34,7 +35,6 @@ export default class EditTask extends Component {
     this.state = {
       completed: this.props.completed,
       date: new Date(),
-      expanded: false,
       formattedDate: 0
     }
   }
@@ -87,6 +87,26 @@ export default class EditTask extends Component {
     this.props.changeTaskCompletionStatus(completed);
   }
 
+  async _showAndroidDatePicker() {
+    const options = {
+      date: this.state.date
+    }
+
+    const { action, year, month, day } = await DataPickerAndroid.open(options);
+
+    if (action === DataPickerAndroid.dismissedAction) {
+      return;
+    }
+
+    this.setState({
+      day,
+      month,
+      year
+    });
+
+    this._showAndroidDatePicker();
+  }
+
   render() {
     const noDueDateTitle = "Set Reminder"
     const dueDateSetTitle = "Due on " + this.state.formattedDate || this.props.formattedDate
@@ -102,24 +122,12 @@ export default class EditTask extends Component {
           />
         </View>
 
-        <View
-          style={ [
-            styles.expandableCellContainer,
-            { maxHeight: this.state.expanded ? this.state.datePickerHeight : 40}
-          ]}
-        >
-          <ExpandableCell
-            title={ this.state.dateSelected ? dueDateSetTitle : noDueDateTitle }
-            expanded={ this.state.expanded }
-            onPress={ () => this._onExpand()}
-          >
-            <DatePickerIOS
-              date={ this.state.date }
-              onDateChange={date => this._onDateChange(date)}
-              onLayout={event => this._getDatePickerHeight(event)}
-              style={ styles.datePicker }
-            />
-          </ExpandableCell>
+        <View style={ styles.androidButtonContainer } >
+          <Button 
+            color={ '#80B546' }
+            title={ this.state.dateSelected? dueDateSetTitle : noDueDateTitle }
+            onPress={ ()=> this._showAndroidDatePicker() }
+          />
         </View>
 
         <View style={ styles.switchContainer }>
