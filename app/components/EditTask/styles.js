@@ -34,6 +34,12 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 10, 
     padding: 10
+  },
+
+  androidButtonContainer: {
+    flex: 1,
+    maxHeight: 60, 
+    margin : 10
   }
 })
 

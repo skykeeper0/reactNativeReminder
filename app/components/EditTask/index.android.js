@@ -60,7 +60,7 @@ export default class EditTask extends Component {
     })
     this.props.clearTaskDueDate();
   }
-  
+
   // change the text value state by changing text
   _changeTextInputValue(text) {
     this.setState({
