@@ -15,6 +15,11 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 10,
     padding: 10
+  },
+  androidTextInput: {
+    height: 40,
+    margin: 10,
+    padding: 10
   }
 });
 

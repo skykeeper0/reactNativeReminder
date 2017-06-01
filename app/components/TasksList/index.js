@@ -131,6 +131,28 @@ export default class TasksList extends Component {
     }
   }  
 
+  _renderAndroidEditTaskComponent(rowId) {
+    this.props.navigator.push({
+      index: 1,
+      passProps: {
+        changeTaskCompletionStatus: status => 
+        this._updateCurrentEditedTaskObject('completed', status),
+
+        changeTaskDueDate: (date, formattedDate) => 
+        this._updateCurrentEditedTaskDueDate(date, formattedDate),
+
+        changeTaskName: name => this._updateCurrentEditedTaskObject('text', name),
+
+        clearTaskDueDate: () => 
+        this._updateCurrentEditedTaskDueDate(undefined, undefined),
+
+        completed: this.state.currentEditedTaskObject.completed,
+        due: this.state.currentEditedTaskObject.due,
+        formattedDate: this.state.currentEditedTaskObject.formattedDate,
+        text: this.state.currentEditedTaskObject.text
+      }
+    })
+  }
   
   _renderIOSEditTaskComponent(rowId) {
     this.props.navigator.push({
