@@ -39,7 +39,8 @@ export default class EditTask extends Component {
     }
   }
 
-  _onDateChange(date) {
+  _onDateChange() {
+    const date = new Date(this.state.year, this.state.month, this.state.day, this.state.hour, this.state.minute)
     this.setState({
       date,
       expanded : true,
@@ -104,7 +105,22 @@ export default class EditTask extends Component {
       year
     });
 
-    this._showAndroidDatePicker();
+    this._showAndroidTimePicker();
+  }
+
+  async _showAndroidTimePicker() {
+    const { action, minute, hour } = await TimePickerAndroid.open();
+
+    if (action === TimePickerAndroid.dismissedAction) {
+      return;
+    }
+
+    this.setState({
+      hour,
+      minute
+    })
+
+    this._onDateChange();
   }
 
   render() {
