@@ -5,12 +5,12 @@
  */
 
 import React, { Component } from 'react';
+import { Navigator } from 'react-native-deprecated-custom-component'
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View,
-  Navigator
+  View
 } from 'react-native';
 
 import TasksList from './app/components/TasksList';
