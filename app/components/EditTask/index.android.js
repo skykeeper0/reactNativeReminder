@@ -60,19 +60,7 @@ export default class EditTask extends Component {
     })
     this.props.clearTaskDueDate();
   }
-
-  _getDatePickerHeight(event) {
-    this.setState({
-      datePickerHeight: event.nativeEvent.layout.width
-    })
-  }
-
-  _onExpand() {
-    this.setState({
-      expanded: !this.state.expanded
-    })
-  }
-
+  
   // change the text value state by changing text
   _changeTextInputValue(text) {
     this.setState({
