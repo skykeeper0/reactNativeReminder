@@ -20,7 +20,7 @@ export default class Tasks extends Component {
   _renderScene(route, navigator) {
     if (route.index === 0) {
       return (
-        <FirstComponent
+        <TasksList
           title={ route.title }
           navigator={ navigator }
         />
@@ -29,7 +29,7 @@ export default class Tasks extends Component {
 
     if (route.index === 1) {
       return (
-        <SecondComponent
+        <EditTask
           navigator={ navigator }
           details={ route.passProps.details }
         />
@@ -39,8 +39,8 @@ export default class Tasks extends Component {
 
   render() {
     const routes = [
-      {title: 'First Component', index: 0},
-      {title: 'Second Component', index: 1}
+      {title: 'Tasks', index: 0},
+      {title: 'Edit Task', index: 1}
     ]
     return (
       <Navigator
