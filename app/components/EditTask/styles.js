@@ -40,6 +40,12 @@ const styles = StyleSheet.create({
     flex: 1,
     maxHeight: 60, 
     margin : 10
+  },
+
+  saveButton: {
+    flex: 1,
+    marginTop: 20,
+    maxHeight: 70,
   }
 })
 
