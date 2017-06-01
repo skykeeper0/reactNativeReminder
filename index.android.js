@@ -31,7 +31,16 @@ export default class Tasks extends Component {
       return (
         <EditTask
           navigator={ navigator }
-          details={ route.passProps.details }
+          route={ route }
+          changeTaskCompletionStatus={
+            route.passProps.changeTaskCompletionStatus 
+          }
+          changeTaskDueDate={ route.passProps.changeTaskDueDate }
+          changeTaskName={ route.passProps.changeTaskName }
+          completed={ route.passProps.completed }
+          due={ route.passProps.due }
+          formattedDate={ route.passProps.formattedDate }
+          text={ route.passProps.text }
         />
       )
     }
@@ -51,24 +60,5 @@ export default class Tasks extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('Tasks', () => Tasks);
