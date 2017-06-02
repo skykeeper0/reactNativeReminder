@@ -33,7 +33,7 @@ export default class Tasks extends Component {
         <EditTask
           navigator={ navigator }
           route={ route }
-          saveCurrentEditTask={ route.passProps.saveCurrentEditTask}
+          saveCurrentEditedTask={ route.passProps.saveCurrentEditedTask}
           changeTaskCompletionStatus={
             route.passProps.changeTaskCompletionStatus 
           }
