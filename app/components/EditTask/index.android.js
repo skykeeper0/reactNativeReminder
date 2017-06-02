@@ -5,7 +5,7 @@ import {
   Button,
   Text,
   View,
-  DataPickerAndroid,
+  DatePickerAndroid,
   TimePickerAndroid,
   Switch,
   TextInput
@@ -82,9 +82,9 @@ export default class EditTask extends Component {
       date: this.state.date
     }
 
-    const { action, year, month, day } = await DataPickerAndroid.open(options);
+    const { action, year, month, day } = await DatePickerAndroid.open(options);
 
-    if (action === DataPickerAndroid.dismissedAction) {
+    if (action === DatePickerAndroid.dismissedAction) {
       return;
     }
 
